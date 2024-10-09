@@ -57,14 +57,15 @@ public class Reservation {
     // fazer fomatação para exibir os dados
     @Override
     public  String toString(){
-         return "Room"
+         return "Quarto: "
                  + roomNumber
+                 + ", Check in: "
                  + sdf.format(checkIn)
-                 + ", Checkout"
+                 + ", Checkout: "
                  + sdf.format(checkOut)
-                 + ", duration"
+                 + ", duração: "
                  + duration()
-                 + "nights";
+                 + " noites.";
     }
 
 }

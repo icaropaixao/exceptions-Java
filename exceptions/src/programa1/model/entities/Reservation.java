@@ -1,5 +1,7 @@
 package programa1.model.entities;
 
+import programa1.model.exceptions.DomainException;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -16,7 +18,12 @@ public class Reservation {
     public Reservation(){
 
     }
-    public Reservation(Integer roomNumber, Date checkIn, Date checkOut){
+    public Reservation(Integer roomNumber, Date checkIn, Date checkOut) throws DomainException {
+        if (!checkOut.after(checkIn)){
+            // outra excepetion
+            throw new DomainException("Erro: as datas de reservas para atualizarção devem ser datas futuras!") ;
+        }
+
         this.roomNumber = roomNumber;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
@@ -48,10 +55,20 @@ public class Reservation {
     }
 
     // alterar as datas
-    public void updateDates(Date checkIn, Date checkOut){
+    public void updateDates(Date checkIn, Date checkOut) throws DomainException{
 
+        Date now = new Date();
+        if (checkIn.before(now) || checkOut.before(now)){
+            // lançando excepetion caso a acondição seja verdadeira
+            throw new DomainException("Erro: as datas de reservas para atualização devem ser datas futuras!") ;
+        }
+         if (!checkOut.after(checkIn)){
+             // outra excepetion
+            throw new DomainException("Erro: as datas de reservas para atualização devem ser datas futuras!") ;
+        }
         this.checkIn = checkIn;
         this.checkOut = checkOut;
+
     }
 
     // fazer fomatação para exibir os dados
